@@ -6,14 +6,15 @@
 function support_bar_init() {
   if (variable_get('support_bar_enabled', 0) == 1) {
     drupal_add_js(array('support_bar' =>
-    array(
-      'support_bar_filepath' => variable_get('logo_watermark_filepath', ''),
-      'support_bar_url' => variable_get('logo_watermark_url', '/'),
-      'support_bar_anchor_title' => variable_get('logo_watermark_anchor_title', ''),
-    ),
+      array(
+        'support_bar_phone_number' => variable_get('logo_watermark_anchor_title', ''),
+        'support_bar_filepath' => variable_get('support_bar_filepath', ''),
+        'support_bar_url' => variable_get('support_bar_url', '/'),
+        'support_bar_anchor_title' => variable_get('logo_watermark_anchor_title', ''),
+      ),
     ), 'setting');
 
-    drupal_add_js(drupal_get_path('module', 'logo_watermark') . '/js/logo_watermark.js', array('scope' => 'footer', 'weight' => 1000, 'preprocess' => TRUE));
+    drupal_add_js(drupal_get_path('module', 'support_bar') . '/js/support_bar.js', array('scope' => 'footer', 'weight' => 1000, 'preprocess' => TRUE));
   }
 }
 
