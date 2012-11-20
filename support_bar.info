@@ -1,0 +1,3 @@
+name = Support Bar
+description = Support Bar adds a toolbar to the bottom of the page to allow a privileged user quick access to contact support administrator or find help online.
+core = 7.x

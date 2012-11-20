@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function support_bar_init() {
+  if (variable_get('support_bar_enabled', 0) == 1) {
+    drupal_add_js(array('support_bar' =>
+    array(
+      'support_bar_filepath' => variable_get('logo_watermark_filepath', ''),
+      'support_bar_url' => variable_get('logo_watermark_url', '/'),
+      'support_bar_anchor_title' => variable_get('logo_watermark_anchor_title', ''),
+    ),
+    ), 'setting');
+
+    drupal_add_js(drupal_get_path('module', 'logo_watermark') . '/js/logo_watermark.js', array('scope' => 'footer', 'weight' => 1000, 'preprocess' => TRUE));
+  }
+}
+
+/**
+ * Implements hook_permission().
+ * @return array
+ */
+function support_bar_permission() {
+  return array(
+    'access support bar' => array(
+      'title' => t('Access Support Bar'),
+      'description' => t('User can use the support bar.'),
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ * @return array
+ */
+function support_bar_menu() {
+  $items = array();
+
+  $items['admin/config/system/support-bar'] = array(
+    'title' => 'Support Bar',
+    'description' => 'Configure settings for Support Bar.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('support_bar_admin_settings'),
+    'access arguments' => array('access support bar'),
+    'file' => 'support_bar.admin.inc',
+  );
+
+  return $items;
+}
+/*
+function support_bar_theme() {
+
+}*/
