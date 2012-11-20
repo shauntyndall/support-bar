@@ -1,0 +1,33 @@
+div#admin-support-bar {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 9999;
+  width: 100%;
+  height: 60px;
+  background: #000;
+  color: #fff;
+}
+
+div#admin-support-bar ul {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+div#admin-support-bar ul li {
+  display: inline;
+}
+
+div#admin-support-bar ul li.company-phone {
+  width: 25%;
+  padding-right: 20px;
+  border-right: 1px solid #fff;
+}
+
+div#admin-support-bar ul li.company-logo {
+  float: right;
+  margin-right: 20px;
+  margin-top: -25px;
+}

@@ -5,15 +5,16 @@
  */
 function support_bar_init() {
   if (variable_get('support_bar_enabled', 0) == 1) {
-    drupal_add_js(array('support_bar' =>
-      array(
-        'support_bar_phone_number' => variable_get('logo_watermark_anchor_title', ''),
-        'support_bar_filepath' => variable_get('support_bar_filepath', ''),
-        'support_bar_url' => variable_get('support_bar_url', '/'),
-        'support_bar_anchor_title' => variable_get('logo_watermark_anchor_title', ''),
-      ),
-    ), 'setting');
+    $support = array(
+      'support_bar_phone_number' => variable_get('support_bar_phone_number', ''),
+      'support_bar_filepath' => variable_get('support_bar_filepath', ''),
+      'support_bar_url' => variable_get('support_bar_url', '/'),
+    );
 
+    $bar_html = theme('support_bar', $support);
+
+    drupal_add_css(drupal_get_path('module', 'support_bar') . '/css/support_bar.css');
+    drupal_add_js(array('support_bar' => array('support_bar_html' => $bar_html)), 'setting');
     drupal_add_js(drupal_get_path('module', 'support_bar') . '/js/support_bar.js', array('scope' => 'footer', 'weight' => 1000, 'preprocess' => TRUE));
   }
 }
@@ -49,7 +50,24 @@ function support_bar_menu() {
 
   return $items;
 }
-/*
-function support_bar_theme() {
 
-}*/
+/**
+ * Implements hook_theme().
+ * @return array
+ */
+function support_bar_theme() {
+  return array(
+    'support_bar' => array(
+      'template' => 'support_bar',
+      'variables' => array('support' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess().
+ * @param $vars
+ */
+function support_bar_preprocess_support_bar(&$vars) {
+
+}
