@@ -4,15 +4,14 @@
  * Implements hook_init().
  */
 function support_bar_init() {
-  if (variable_get('support_bar_enabled', 0) == 1) {
+  if (variable_get('support_bar_enabled', 0) == 1 && user_access('access support bar')) {
     $support = array(
-      'support_bar_phone_number' => variable_get('support_bar_phone_number', ''),
-      'support_bar_filepath' => variable_get('support_bar_filepath', ''),
-      'support_bar_url' => variable_get('support_bar_url', '/'),
+      'phone_number' => variable_get('support_bar_phone_number', ''),
+      'filepath' => variable_get('support_bar_filepath', ''),
+      'url' => variable_get('support_bar_url', '/'),
     );
 
     $bar_html = theme('support_bar', $support);
-
     drupal_add_css(drupal_get_path('module', 'support_bar') . '/css/support_bar.css');
     drupal_add_js(array('support_bar' => array('support_bar_html' => $bar_html)), 'setting');
     drupal_add_js(drupal_get_path('module', 'support_bar') . '/js/support_bar.js', array('scope' => 'footer', 'weight' => 1000, 'preprocess' => TRUE));
@@ -25,6 +24,10 @@ function support_bar_init() {
  */
 function support_bar_permission() {
   return array(
+    'administer support bar' => array(
+      'title' => t('Administer Support Bar'),
+      'description' => t('User can configure support bar settings.'),
+    ),
     'access support bar' => array(
       'title' => t('Access Support Bar'),
       'description' => t('User can use the support bar.'),
@@ -44,7 +47,7 @@ function support_bar_menu() {
     'description' => 'Configure settings for Support Bar.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('support_bar_admin_settings'),
-    'access arguments' => array('access support bar'),
+    'access arguments' => array('administer support bar'),
     'file' => 'support_bar.admin.inc',
   );
 
@@ -66,8 +69,9 @@ function support_bar_theme() {
 
 /**
  * Implements hook_preprocess().
- * @param $vars
+ * @param $variables
  */
-function support_bar_preprocess_support_bar(&$vars) {
-
+function support_bar_preprocess_support_bar(&$variables) {
+  $variables['email'] = l('Contact Us', 'mailto:' . variable_get('site_mail', ''), array('absolute' => TRUE));
+  $variables['logo'] = l(theme('image', array('path' => $variables['filepath'])), $variables['url'], array('html' => TRUE));
 }

@@ -7,27 +7,33 @@ div#admin-support-bar {
   height: 60px;
   background: #000;
   color: #fff;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+div#admin-support-bar a {
+  color: #fff;
 }
 
 div#admin-support-bar ul {
   list-style: none;
   list-style-image: none;
   margin: 0;
-  padding: 0;
+  padding: 0 20px;
 }
 
 div#admin-support-bar ul li {
-  display: inline;
+  float: left;
+  height: 100px;
+  padding: 0 20px;
+  line-height: 65px;
 }
 
-div#admin-support-bar ul li.company-phone {
-  width: 25%;
-  padding-right: 20px;
-  border-right: 1px solid #fff;
+div#admin-support-bar ul li.with-border {
+  border-right: 2px solid #fff;
 }
 
 div#admin-support-bar ul li.company-logo {
   float: right;
-  margin-right: 20px;
   margin-top: -25px;
 }
